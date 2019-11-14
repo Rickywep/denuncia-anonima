@@ -1,0 +1,208 @@
+{% extends "cruds/base.html" %}
+{% load static  i18n  %}
+
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css">
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+{{ form.media }}
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function validaDatos() {
+
+        var div = document.getElementById("div_captcha")
+        var div2 = document.getElementById("div_descripcion")
+        var text = document.getElementById("text1")
+        var text2 = document.getElementById("text2")
+        var response = grecaptcha.getResponse();
+
+        if ($('#id_descripcion').val().length == 0) {
+            div2.style.border = "thin solid red";
+            text2.style.display = "";
+            text2.style.color = "red";
+
+        } 
+        
+        if (response.length == 0) {
+
+            div.style.border = "thin solid red";
+            text.style.display = "";
+            text.style.color = "red";   
+
+        } 
+        
+        if ((response.length > 0) && ($('#id_descripcion').val().length > 1)){
+            document.form.submit();
+        }
+    };
+</script>
+
+{% endblock %}
+
+{% block body %}
+<div class="text-left text-muted py-4 px-9 ml-auto">
+    <a class="text-muted" href="http://www.minsegtuc.gov.ar/">
+        <i class="fe fe-external-link"></i>Ir al Ministerio de Seguridad de Tucuman
+    </a>
+</div>
+<div class="row px-9">
+    <div class="card">
+        <div class="card-status bg-blue"></div>
+            <div class="card-header text-right py-4 row">
+                <img src="{% static 'assets/images/minsegtuc/logo_secret.png' %}" width="250" alt="tabler logo">
+                <div></div>
+                <div class="card-title ml-auto">
+                    <h1 class="card-title"> <b>Denuncia Anonima por Drogas</b></Denuncia>
+                    </h1>
+                    <h6 class="card-text">Tucuman, Argentina</h6>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-text text-center py-3 ">
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when
+                        looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                        distribution of letters, as opposed to using 'Content here, content here', making it look like
+                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                        default model text, and a search for 'lorem ipsum' will uncover many web sites still in their
+                        infancy.
+                        <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/138/texact.htm"> Ley 27.737.
+                            TENENCIA Y TRAFICO DE ESTUPEFACIENTE</a>
+                            <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/texact.htm"> Ley
+                                25.326. PROTECCION DE LOS DATOS PERSONALES</a>
+                            </p>
+                        </div>
+                        <form name="form" action="." method="POST" class="py-4">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <div></div>
+                                        <label class="form-label">Nombre y Apellido del Sospechoso</label>
+                            <input id="id_nombre_apellido_sospechoso" class="form-control" type="text"
+                                name="nombre_apellido_sospechoso" value="{{ nombre_apellido_sospechoso }}">
+                            <div class="invalid-feedback">{{error}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">{{ form.apodo_sospechoso.label  }}</label>
+                            <input id="id_apodo_sospechoso" class="form-control" type="text" name="apodo_sospechoso"
+                                value="{{ apodo_sospechoso }}">
+                            <div class="invalid-feedback">{{error}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="div_descripcion" class="form-group">
+                    <label class="form-label">{{ form.descripcion.label  }}</label>
+                    <textarea id="id_descripcion" class="form-control" type="text" name="descripcion"
+                        value="{{ descripcion }}" 
+                        placeholder="Por favor, ingrese una descripcion con los datos mas relevantes."></textarea>
+                    <span id="text2" style="display: none;">Por favor, ingrese una descripcion con los datos mas
+                        relevantes.</span>
+
+                    <div class="invalid-feedback">{{error}}</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"> Ubicacíon de venta de Drogas </label>
+                    <input id="id_locacion" class="form-control" type="hidden" name="locacion" value="{{ locacion }}">
+                    <div class="invalid-feedback">{{error}}</div>
+                </div>
+
+                <div class="form-group">
+                    <div>{{ form.fecha }}</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div id="mapid" style="width:100%; height:350px"></div>
+                </div>
+
+                <div id="div_captcha" class="form-group">
+
+                    <div class="g-recaptcha" data-sitekey="6Lcvy7AUAAAAABTs-ZUL9Lo5JnBTJnZt4pGOJoCX"></div>
+                    <span id="text1" style="display: none;">Demuestra que no eres un robot.</span>
+
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-rss ml-auto" onClick="return validaDatos();">
+                        <i class="fe fe-send mr-2"></i>
+                        {% trans "Enviar" %}</button>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+</div>
+{% if url_list %}
+{% endif %}
+
+<script>
+
+    var map = L.map('mapid').setView([-26.83077, -65.21644], 8);
+    var bounds = L.latLngBounds([[-26.219901, -66.086731],
+    [-27.812255, -64.722617]
+    ]);
+
+
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJ1aW5vIiwiYSI6ImNqeTBiam9zMTAxZ2czZ3E4aGE2ZHQ0bGIifQ.SbLskdmBG33M34jXkrSSOA', {
+        attribution: ':copyright: <a href="https://www.mapbox.com/feedback/">Mapbox</a> :copyright: <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    var marker;
+
+    function onMapClick(e) {
+        if (marker) map.removeLayer(marker);
+        marker = new L.Marker(e.latlng, { draggable: false });
+        var contenido = bounds.contains((e.latlng));
+        if (contenido == false) {
+            alert("Por favor ingrese una direccion valida perteneciente a la provincia de Tucuman")
+        } else {
+            map.addLayer(marker);
+            $("#id_locacion").val(e.latlng.lat + "," + e.latlng.lng);
+
+        }
+    }
+
+    map.on('click', onMapClick);
+
+
+
+    L.Control.geocoder({
+        geocoder: L.Control.Geocoder.nominatim({
+            geocodingQueryParams: {
+                viewbox: bounds.toBBoxString(), bounded: 1,
+                // q:'Argentina, Tucumán',
+            }
+        }),
+        defaultMarkGeocode: false,
+        collapsed: false,
+        placeholder: 'Buscar',
+        errorMessage: 'No encontrado.',
+    })
+        .on('markgeocode', function (e) {
+            if (marker) map.removeLayer(marker);
+            marker = new L.Marker(e.geocode.center, { draggable: true });
+            j = e.geocode.center;
+            var contenido = bounds.contains((j));
+            if (contenido == false) {
+                alert("Por favor ingrese una direccion valida perteneciente a la provincia de Tucuman")
+            } else {
+                map.addLayer(marker);
+                map.setView(e.geocode.center, 15);
+                $("#id_locacion").val(e.geocode.center.lat + "," + e.geocode.center.lng);
+            }
+        })
+        .addTo(map);
+
+
+</script>
+{% endblock %}
