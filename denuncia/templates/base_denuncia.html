@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/dashboard.css' %}">
+
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body class="">
+
+    <div class="container">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <script src="{% static 'assets/js/require.min.js' %}" type="text/javascript"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '/static{{ STATIC_ROOT }}'
+        });
+    </script>
+
+    <script src="{% static 'assets/js/dashboard.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    {% block javascript %}
+    {% endblock %}
+
+    <footer class="footer bg-dark">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-auto ml-lg-auto">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <ul class="list-inline list-inline-dots mb-0">
+                                <li class="list-inline-item">
+                                    <a class="icon" href="https://www.facebook.com/sentirse.protegido.9">
+                                        <i class="fe fe-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="icon" href="https://twitter.com/MinSegTuc">
+                                        <i class="fe fe-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="icon" href="https://www.youtube.com/channel/UC4P6bPOmnVgRL-mf1zFm_rA">
+                                        <i class="fe fe-play-circle"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-auto">
+                            <a href="mailto:info@minsegtuc.gov.ar" class="btn btn-outline-info btn-sm">Email</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                    Copyright © 2018 <a class="text-white" href=".">Ministerio de Seguridad</a>.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

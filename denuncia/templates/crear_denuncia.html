@@ -1,4 +1,4 @@
-{% extends "cruds/base.html" %}
+{% extends "base_denuncia.html" %}
 {% load static  i18n  %}
 
 
@@ -27,17 +27,17 @@
             text2.style.display = "";
             text2.style.color = "red";
 
-        } 
-        
+        }
+
         if (response.length == 0) {
 
             div.style.border = "thin solid red";
             text.style.display = "";
-            text.style.color = "red";   
+            text.style.color = "red";
 
-        } 
-        
-        if ((response.length > 0) && ($('#id_descripcion').val().length > 1)){
+        }
+
+        if ((response.length > 0) && ($('#id_descripcion').val().length > 1)) {
             document.form.submit();
         }
     };
@@ -54,36 +54,34 @@
 <div class="row px-9">
     <div class="card">
         <div class="card-status bg-blue"></div>
-            <div class="card-header text-right py-4 row">
-                <img src="{% static 'assets/images/minsegtuc/logo_secret.png' %}" width="250" alt="tabler logo">
-                <div></div>
-                <div class="card-title ml-auto">
-                    <h1 class="card-title"> <b>Denuncia Anonima por Drogas</b></Denuncia>
-                    </h1>
-                    <h6 class="card-text">Tucuman, Argentina</h6>
-                </div>
+        <div class="card-header text-right py-4 row">
+            <img src="{% static 'assets/images/minsegtuc/0_MINISTERIO DE SEGURIDAD.png' %}" width="250"
+                alt="tabler logo">
+            <div></div>
+            <div class="card-title ml-auto">
+                <h1 class="card-title"> <b>Denuncia Anonima por Drogas</b></Denuncia>
+                </h1>
+                <h6 class="card-text">Tucuman, Argentina</h6>
             </div>
-            <div class="card-body">
-                <div class="card-text text-center py-3 ">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-                        looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                        default model text, and a search for 'lorem ipsum' will uncover many web sites still in their
-                        infancy.
-                        <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/138/texact.htm"> Ley 27.737.
-                            TENENCIA Y TRAFICO DE ESTUPEFACIENTE</a>
-                            <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/texact.htm"> Ley
-                                25.326. PROTECCION DE LOS DATOS PERSONALES</a>
-                            </p>
-                        </div>
-                        <form name="form" action="." method="POST" class="py-4">
-                            {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <div></div>
-                                        <label class="form-label">Nombre y Apellido del Sospechoso</label>
+        </div>
+        <div class="card-body">
+            <div class="card-text text-center py-3 ">
+                <p>Bienvenidos a la secretaria de estado de lucha contra el narcotráfico. En esta página podes
+                    dejar tu denuncia si pensás que alguien que conoces vende drogas. La misma será anónima y
+                    segura.
+                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/138/texact.htm"> Ley 27.737.
+                        TENENCIA Y TRAFICO DE ESTUPEFACIENTE</a>
+                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/texact.htm"> Ley
+                        25.326. PROTECCION DE LOS DATOS PERSONALES</a>
+                </p>
+            </div>
+            <form name="form" action="." method="POST" class="py-4">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div></div>
+                            <label class="form-label">Nombre y Apellido del Sospechoso</label>
                             <input id="id_nombre_apellido_sospechoso" class="form-control" type="text"
                                 name="nombre_apellido_sospechoso" value="{{ nombre_apellido_sospechoso }}">
                             <div class="invalid-feedback">{{error}}</div>
@@ -101,7 +99,7 @@
                 <div id="div_descripcion" class="form-group">
                     <label class="form-label">{{ form.descripcion.label  }}</label>
                     <textarea id="id_descripcion" class="form-control" type="text" name="descripcion"
-                        value="{{ descripcion }}" 
+                        value="{{ descripcion }}"
                         placeholder="Por favor, ingrese una descripcion con los datos mas relevantes."></textarea>
                     <span id="text2" style="display: none;">Por favor, ingrese una descripcion con los datos mas
                         relevantes.</span>
