@@ -21,7 +21,17 @@ pip install -r requirements.txt
 ./manage.py migrate
 ./manage.py makemigrations
 ```
-- Agregar Secret Key de Google Captcha.
+- Agregar las siguientes Apps en `settings.py`.
+```
+INSTALLED_APPS = [
+  ...
+  'import_export',
+  'cruds',
+  'denuncia',
+  ...
+]
+```
+- Agregar Secret Key de Google Captcha en `settings.py`.
 ```
 GOOGLE_RECAPTCHA_SECRET_KEY = 'secret-key'
 ```
