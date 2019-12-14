@@ -23,7 +23,7 @@ class DenunciaCreateView(CRUDMixin, CreateView):
 
         ''' Begin reCAPTCHA validation '''
         recaptcha_response = self.request.POST.get('g-recaptcha-response')
-        print(self.request.POST)
+        #print(self.request.POST)
         url = 'https://www.google.com/recaptcha/api/siteverify'
         values = {
             'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
