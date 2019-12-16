@@ -16,11 +16,6 @@ Módulo Django para la Página Web del [Ministerio de Seguridad](https://minsegt
 ```
 pip install -r requirements.txt
 ```
-- Migraciones.
-```
-./manage.py migrate
-./manage.py makemigrations
-```
 - Agregar las siguientes Apps en `settings.py`.
 ```
 INSTALLED_APPS = [
@@ -38,6 +33,11 @@ GOOGLE_RECAPTCHA_SECRET_KEY = 'secret-key'
 - Agregar en `urls.py` las vistas de alta de denuncias.
 ```
 url(r'^denuncia/', include('denuncia.urls')),
+```
+- Migraciones.
+```
+./manage.py migrate
+./manage.py makemigrations
 ```
 - Iniciar.
 ```
