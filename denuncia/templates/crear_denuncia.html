@@ -23,6 +23,8 @@
         var response = grecaptcha.getResponse();
 
         if ($('#id_descripcion').val().length == 0) {
+            document.getElementById("id_descripcion").focus();
+
             div2.style.border = "thin solid red";
             text2.style.display = "";
             text2.style.color = "red";
@@ -46,35 +48,45 @@
 {% endblock %}
 
 {% block body %}
-<div class="text-left text-muted py-4 px-9 ml-auto">
-    <a class="text-muted" href="http://www.minsegtuc.gov.ar/">
-        <i class="fe fe-external-link"></i>Ir al Ministerio de Seguridad de Tucuman
-    </a>
-</div>
-<div class="row px-9">
+
+<div class="page">
+    <div class="text-left text-muted page-header ">
+        <h5 class="page-tittle mx-5 mx-md-0">
+            <a class="text-muted " href="http://www.minsegtuc.gov.ar/">
+                <i class="fe fe-external-link"></i>
+                Ir al Ministerio de Seguridad de Tucumán
+        </h5>
+        </a>
+    </div>
     <div class="card">
-        <div class="card-status bg-blue"></div>
-        <div class="card-header text-right py-4 row">
+        <div class="card-status bg-blue "></div>
+        <div class="card-header text-md-right py-4 d-flex flex-column flex-md-row">
             <img src="{% static 'assets/images/minsegtuc/0_MINISTERIO DE SEGURIDAD.png' %}" width="250"
                 alt="tabler logo">
-            <div></div>
-            <div class="card-title ml-auto">
+            <div class="ml-md-auto">
                 <h1 class="card-title"> <b>Denuncia Anonima por Drogas</b></Denuncia>
                 </h1>
                 <h6 class="card-text">Tucuman, Argentina</h6>
             </div>
         </div>
         <div class="card-body">
-            <div class="card-text text-center py-3 ">
+            <div class="card-text text-center ">
                 <p>Bienvenidos a la secretaria de estado de lucha contra el narcotráfico. En esta página podes
                     dejar tu denuncia si pensás que alguien que conoces vende drogas. La misma será anónima y
                     segura.
-                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/138/texact.htm"> Ley 27.737.
-                        TENENCIA Y TRAFICO DE ESTUPEFACIENTE</a>
-                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/texact.htm"> Ley
-                        25.326. PROTECCION DE LOS DATOS PERSONALES</a>
                 </p>
+                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/138/texact.htm" class="alert-link">
+                        <h6>
+                            Ley 27.737. TENENCIA Y TRAFICO DE ESTUPEFACIENTE
+                        </h6>
+                    </a>
+                    <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/texact.htm" class="alert-link">
+                        <h6>
+                            Ley 25.326. PROTECCION DE LOS DATOS PERSONALES
+                        </h6>
+                    </a>
             </div>
+            <hr>
             <form name="form" action="." method="POST" class="py-4">
                 {% csrf_token %}
                 <div class="row">
@@ -128,7 +140,7 @@
 
                 </div>
                 <div class="d-flex">
-                    <button type="button" class="btn btn-rss ml-auto" onClick="return validaDatos();">
+                    <button type="button" class="btn btn-rss btn-block ml-auto " onClick="return validaDatos();">
                         <i class="fe fe-send mr-2"></i>
                         {% trans "Enviar" %}</button>
                 </div>
@@ -137,8 +149,8 @@
 
 
     </div>
-</div>
 
+</div>
 </div>
 {% if url_list %}
 {% endif %}
